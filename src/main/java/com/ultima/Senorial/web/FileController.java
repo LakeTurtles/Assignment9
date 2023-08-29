@@ -1,8 +1,7 @@
 package com.ultima.Senorial.web;
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+
 import com.ultima.Senorial.domain.Recipe;
 import com.ultima.Senorial.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +20,15 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 
+
+
 	@GetMapping("")
-	public Set<Recipe> home() throws IOException {
+	public List<Recipe> allList() throws IOException {
 
-		Set<Recipe> home = fileService.getAllRecipes().stream()
-				.collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
-				TreeSet::add, TreeSet::addAll);
+		return  fileService.getAllRecipes().stream()
+				.peek(s -> System.out.println("---> " + s))
+				.toList();
 
-		home.forEach(System.out::println);
-
-		return home;
 	}
 
 
@@ -86,15 +84,4 @@ public class FileController {
 	}
 
 
-	@GetMapping("/all-recipes")
-	public Set<Recipe> allRecipes() throws IOException  {
-
-		Set<Recipe> allRrecipes = fileService.getAllRecipes().stream().collect(
-				()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
-				TreeSet::add, TreeSet::addAll);
-
-		allRrecipes.forEach(System.out::println);
-
-		return allRrecipes;
-	}
 }
