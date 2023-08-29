@@ -37,7 +37,7 @@ public class FileController {
 
 		Set<Recipe> glutten = fileService.getAllRecipes().stream().filter(Recipe::getGlutenFree)
 				.collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
-				TreeSet::add, TreeSet::addAll);
+				TreeSet::add, TreeSet::addAll );
 
 		glutten.forEach(System.out::println);
 
