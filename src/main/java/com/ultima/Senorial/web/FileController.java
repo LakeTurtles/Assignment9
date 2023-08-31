@@ -32,25 +32,24 @@ public class FileController {
 	}
 
 
-	@GetMapping("/gluten-free") 
-	public Set<Recipe> glutenFree() throws IOException {
 
-		Set<Recipe> glutten = fileService.getAllRecipes().stream().filter(Recipe::getGlutenFree)
-				.collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
-				TreeSet::add, TreeSet::addAll );
+	@GetMapping("/gluten-free")
+	public List<Recipe> glutenFree() throws IOException {
+
+		List<Recipe> glutten = fileService.getAllRecipes().stream().filter(Recipe::getGlutenFree)
+				.toList();
 
 		glutten.forEach(System.out::println);
 
 		return glutten;
 	}
-	
+
 
 	@GetMapping("/vegan")
-	public Set<Recipe> vegan() throws IOException {
+	public List<Recipe> vegan() throws IOException {
 
-		Set<Recipe> vegan = fileService.getAllRecipes().stream().filter(Recipe::getVegan)
-				.collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
-				TreeSet::add, TreeSet::addAll);
+		List<Recipe> vegan = fileService.getAllRecipes().stream().filter(Recipe::getVegan)
+				.toList();
 
 		vegan.forEach(System.out::println);
 
@@ -59,29 +58,81 @@ public class FileController {
 
 
 	@GetMapping("/vegan-and-gluten-free")
-	public Set<Recipe> veganAndGlutenFree() throws IOException {
+	public List<Recipe> veganAndGlutenFree() throws IOException {
 
-		Set<Recipe> veganAndGlutten = fileService.getAllRecipes().stream().filter(Recipe::getGlutenFree)
-				.filter(Recipe::getVegan).collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
-				TreeSet::add, TreeSet::addAll);
-
-		veganAndGlutten.forEach(System.out::println);
+		List<Recipe> veganAndGlutten = fileService.getAllRecipes().stream().filter(Recipe::getGlutenFree)
+				.filter(Recipe::getVegan).toList();
 
 		return veganAndGlutten;
 	}
 
 
 	@GetMapping("/vegetarian")
-	public Set<Recipe> vegetarian() throws IOException {
+	public List<Recipe> vegetarian() throws IOException {
 
-		Set<Recipe> vegetarian = fileService.getAllRecipes().stream().filter(Recipe::getVegetarian)
-				.collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
-				TreeSet::add, TreeSet::addAll);
+		List<Recipe> vegetarian = fileService.getAllRecipes().stream().filter(Recipe::getVegetarian)
+				.toList();
 
 		vegetarian.forEach(System.out::println);
 
 		return vegetarian;
 	}
+
+
+
+	// sets not list
+
+//
+//	@GetMapping("/gluten-free")
+//	public Set<Recipe> glutenFree() throws IOException {
+//
+//		Set<Recipe> glutten = fileService.getAllRecipes().stream().filter(Recipe::getGlutenFree)
+//				.collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
+//				TreeSet::add, TreeSet::addAll );
+//
+//		glutten.forEach(System.out::println);
+//
+//		return glutten;
+//	}
+//
+//
+//	@GetMapping("/vegan")
+//	public Set<Recipe> vegan() throws IOException {
+//
+//		Set<Recipe> vegan = fileService.getAllRecipes().stream().filter(Recipe::getVegan)
+//				.collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
+//				TreeSet::add, TreeSet::addAll);
+//
+//		vegan.forEach(System.out::println);
+//
+//		return vegan;
+//	}
+//
+//
+//	@GetMapping("/vegan-and-gluten-free")
+//	public Set<Recipe> veganAndGlutenFree() throws IOException {
+//
+//		Set<Recipe> veganAndGlutten = fileService.getAllRecipes().stream().filter(Recipe::getGlutenFree)
+//				.filter(Recipe::getVegan).collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
+//				TreeSet::add, TreeSet::addAll);
+//
+//		veganAndGlutten.forEach(System.out::println);
+//
+//		return veganAndGlutten;
+//	}
+//
+//
+//	@GetMapping("/vegetarian")
+//	public Set<Recipe> vegetarian() throws IOException {
+//
+//		Set<Recipe> vegetarian = fileService.getAllRecipes().stream().filter(Recipe::getVegetarian)
+//				.collect(()-> new TreeSet<>(Comparator.comparing(Recipe::getCookingMinutes)),
+//				TreeSet::add, TreeSet::addAll);
+//
+//		vegetarian.forEach(System.out::println);
+//
+//		return vegetarian;
+//	}
 
 
 }
